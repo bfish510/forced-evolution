@@ -342,7 +342,7 @@ def main():
         #c1 = c0
         print '[+]\tSuccess'
         exploit_found = 0
-        while exploit_found == 0:
+        while exploit_found == 0 and c1.qsize() > 0:
             generation += 1
             CREATURE_COUNT = c1.qsize()
             print '[>]\tRunning with creature_count %d,\tgeneration %d' %\
@@ -367,8 +367,11 @@ def main():
                 c = c3.get()[1]
                 c4.append(c)
             c1 = breed_it(c4)
-        print '[i]\tExploit found in %d seconds with %d requests' %\
-            (abs(int(start_time - time.time())), REQ_TOTAL)
+        if exploit_found > 0:
+            print '[i]\tExploit found in %d seconds with %d requests' %\
+                (abs(int(start_time - time.time())), REQ_TOTAL)
+        else:
+            print 'No exploits found'
 
 
 def load_DB():
